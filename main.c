@@ -2,6 +2,7 @@
 #include <gb/font.h>
 #include <stdio.h>
 #include "setups.h"
+#include "GameOverBackground.c"
 
 void main(){
 
@@ -27,13 +28,26 @@ void main(){
 
     init();
 
-    while(1){
+    UINT8 lives = 3;
+    UINT8 newlife;
+
+    while(lives > 0){
         
         SHOW_WIN;
-        
+
         if(checkcollision(&plane, &ufo)){
-            printf("\n \n \n \n \n \n \n \n === GAME OVER ===");
+            lives--;
+            newlife = (int) windowmap[19] - 1;
+            windowmap[19] = (char) newlife;
+
+            /*if(lives < 1){
+                printf("\n \n \n \n \n \n \n \n === GAME OVER ===");
+                lives = 3; 
+                windowmap[19] = 0x04; 
+            } */
+
             waitpad(J_A | J_START | J_B);
+            set_win_tiles(0, 0, 20, 1, windowmap);
             setupBackground();
             setupplane();
             setupufo();
@@ -71,5 +85,8 @@ void main(){
             wait_vbl_done();
             }
     }
+    HIDE_SPRITES;
+    set_bkg_data(37, 20, BackgroundTiles);
+    set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
 }
 
