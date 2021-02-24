@@ -5,11 +5,73 @@
 #include "BackgroundMap.c"
 #include "windowmap.c"
 #include "Plane.c"
+#include "GameCharacter.c"
+
+struct GameCharacter plane;
+struct GameCharacter ufo;
+struct GameCharacter beam;
+UBYTE spritesize = 8;
 
 void init();
 
 void interruptLCD(){
     HIDE_WIN;
+}
+
+void performdelay(UINT8 numloops){
+    UINT8 i;
+    for(i = 0; i < numloops; i++){
+        wait_vbl_done();
+    }
+}
+
+void movegamecharacter(struct GameCharacter* character, UINT8 x, UINT8 y){
+    move_sprite(character->spriteids[0], x, y);
+    move_sprite(character->spriteids[1], x + spritesize, y);
+}
+
+void setupplane(){
+    plane.x = 55;
+    plane.y = 75;
+    plane.width = 16;
+    plane.height = 8;
+
+    //load sprites for ship
+    set_sprite_tile(0, 0);
+    plane.spriteids[0] = 0;
+    set_sprite_tile(1, 1);
+    plane.spriteids[1] = 1;
+
+    movegamecharacter(&plane, plane.x, plane.y);
+
+}
+
+void setupufo(){
+    ufo.x = 165;
+    ufo.y = 65;
+    ufo.width = 16;
+    ufo.height = 8;
+
+    //load sprites for ufo
+    set_sprite_tile(2, 2);
+    ufo.spriteids[0] = 2;
+    set_sprite_tile(3, 3);
+    ufo.spriteids[1] = 3;
+
+    movegamecharacter(&ufo, ufo.x, ufo.y);
+}
+
+void setupbeam(){
+    beam.x = plane.x + 12;
+    beam.y = plane.y;
+    ufo.width = 8;
+    ufo.height = 8;
+
+    //load sprites for beam
+    set_sprite_tile(4, 4);
+    beam.spriteids[0] = 4;
+
+    move_sprite(beam.spriteids[0], beam.x, beam.y);
 }
 
 void main(){
@@ -31,16 +93,9 @@ void main(){
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 0);
 
-    int x = 55;
-    int y = 75;
-
-    SPRITES_8x8;
-
     set_sprite_data(0, 8, Plane);
-    set_sprite_tile(0, 0);
-    move_sprite(0, x, y);
-    set_sprite_tile(1, 1);
-    move_sprite(1, x + 8, y);
+    setupplane();
+    setupufo();
 
     init();
 
@@ -48,24 +103,30 @@ void main(){
         switch (joypad())
         {
         case J_UP:
-            y--;
+            plane.y--;
             break;
         case J_RIGHT:
-            x++;
+            plane.x++;
             break;
         case J_DOWN:
-            y++;
+            plane.y++;
             break;
         case J_LEFT:
-            x--;
+            plane.x--;
+            break;
+        case J_A:
+            setupbeam();
             break;
         default:
             break;
         }
-        move_sprite(0, x, y);
-        move_sprite(1, x + 8, y);
+        movegamecharacter(&plane, plane.x, plane.y);
+        ufo.x--;
+        movegamecharacter(&ufo, ufo.x, ufo.y);
         SHOW_WIN;
+        scroll_sprite(4, 1, 0);
         scroll_bkg(1, 0);
+        //performdelay(5);
         wait_vbl_done();
     }
 }
