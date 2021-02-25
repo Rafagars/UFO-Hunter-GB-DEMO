@@ -63,9 +63,9 @@ void setupplane(){
 
 }
 
-void setupufo(){
-    ufo.x = 165;
-    ufo.y = 65;
+void setupufo(UINT8 x, UINT8 y){
+    ufo.x = x;
+    ufo.y = y;
     ufo.width = 15;
     ufo.height = 5;
 
@@ -78,10 +78,10 @@ void setupufo(){
     movegamecharacter(&ufo, ufo.x, ufo.y);
 }
 
-void setupbeam(){
-    beam.x = plane.x + 10;
-    beam.y = plane.y;
-    beam.width = 4;
+void setupbeam(UINT8 x, UINT8 y){
+    beam.x = x;
+    beam.y = y;
+    beam.width = 8;
     beam.height = 4;
 
     //load sprites for beam
@@ -91,9 +91,9 @@ void setupbeam(){
     move_sprite(beam.spriteids[0], beam.x, beam.y);
 }
 
-void setupExplosion(){
-    explosion.x = ufo.x;
-    explosion.y = ufo.y;
+void setupExplosion(UINT8 x, UINT8 y){
+    explosion.x = x;
+    explosion.y = y;
     explosion.width = 8;
     explosion.height = 8;
 
