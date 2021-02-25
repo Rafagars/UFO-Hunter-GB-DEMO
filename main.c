@@ -29,7 +29,7 @@ void main(){
     init();
 
     UINT8 lives = 3;
-    UINT8 newlife;
+    UINT8 newlife; 
 
     while(lives > 0){
         
@@ -37,8 +37,9 @@ void main(){
 
         if(checkcollision(&plane, &ufo)){
             lives--;
-            newlife = (int) windowmap[19] - 1;
-            windowmap[19] = (char) newlife;
+            // Since windowmap is a array of characters, we transform the value we want to change to a integer
+            newlife = (int) windowmap[19] - 1; //Subtract one to the character in the window layer that represent the number of lives
+            windowmap[19] = (char) newlife; //Changed it back to a character 
 
             /*if(lives < 1){
                 printf("\n \n \n \n \n \n \n \n === GAME OVER ===");
@@ -46,9 +47,10 @@ void main(){
                 windowmap[19] = 0x04; 
             } */
 
-            waitpad(J_A | J_START | J_B);
+            waitpad(J_A | J_START | J_B); // Press any of this buttons to continue
             set_win_tiles(0, 0, 20, 1, windowmap);
-            setupBackground();
+            setupBackground(); //Restart background
+            //Restart sprites
             setupplane();
             setupufo();
         } else {
@@ -93,7 +95,7 @@ void main(){
             wait_vbl_done();
             }
     }
-    move_bkg(0, 0);
+    move_bkg(0, 0); //Move the background to its default position
     HIDE_SPRITES;
     set_bkg_data(37, 20, BackgroundTiles);
     set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
