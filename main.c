@@ -93,6 +93,7 @@ void main(){
             wait_vbl_done();
             }
     }
+    move_bkg(0, 0);
     HIDE_SPRITES;
     set_bkg_data(37, 20, BackgroundTiles);
     set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
