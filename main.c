@@ -55,16 +55,24 @@ void main(){
             switch (joypad())
             {
             case J_UP:
-                plane.y--;
+                if(plane.y > 30){
+                    plane.y--;
+                }
                 break;
             case J_RIGHT:
-                plane.x++;
+                if(plane.x < 155){
+                    plane.x++;
+                }
                 break;
             case J_DOWN:
-                plane.y++;
+                if(plane.y < 120){
+                    plane.y++;
+                }
                 break;
             case J_LEFT:
-                plane.x--;
+                if(plane.x > 5){
+                    plane.x--;
+                }
                 break;
             case J_A:
                 setupbeam();
@@ -80,7 +88,7 @@ void main(){
                 setupExplosion();
             }
             scroll_sprite(4, 1, 0);
-            //scroll_bkg(1, 0);
+            scroll_bkg(1, 0);
             //performdelay(5);
             wait_vbl_done();
             }
