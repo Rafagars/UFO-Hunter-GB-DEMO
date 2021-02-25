@@ -81,8 +81,8 @@ void setupufo(){
 void setupbeam(){
     beam.x = plane.x + 10;
     beam.y = plane.y;
-    ufo.width = 4;
-    ufo.height = 4;
+    beam.width = 4;
+    beam.height = 4;
 
     //load sprites for beam
     set_sprite_tile(4, 4);
