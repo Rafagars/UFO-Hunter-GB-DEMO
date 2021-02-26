@@ -6,6 +6,10 @@
 
 void main(){
 
+    UINT8 lives = 3;
+    UINT8 newlife;
+    UINT8 swap; 
+
     font_t min_font;
 
     STAT_REG = 0x45;
@@ -24,12 +28,9 @@ void main(){
 
     set_sprite_data(0, 8, Plane);
     setupplane();
-    setupufo(165, 65);
+    setupufo(randomize() + 75, randomize() + 50);
 
     init();
-
-    UINT8 lives = 3;
-    UINT8 newlife; 
 
     while(1){
         
@@ -46,22 +47,25 @@ void main(){
                 HIDE_SPRITES;
                 set_bkg_data(37, 20, BackgroundTiles);
                 set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
-                waitpad(J_A | J_START | J_B); // Press any of this buttons to continue
                 lives = 3; 
                 windowmap[19] = 0x04; 
+                windowmap[8] = 0x01;
+                windowmap[7] = 0x01;
+                windowmap[6] = 0x01;
             }
 
             waitpad(J_A | J_START | J_B); // Press any of this buttons to continue
             set_win_tiles(0, 0, 20, 1, windowmap);
             setupBackground(); //Restart background
             //Restart sprites
+            SHOW_SPRITES;
             setupplane();
-            setupufo(165, 65);
+            setupufo(randomize(), randomize() + 60);
         } else {
             switch (joypad())
             {
             case J_UP:
-                if(plane.y > 30){
+                if(plane.y > 25){
                     plane.y--;
                 }
                 break;
@@ -87,8 +91,22 @@ void main(){
                 break;
             }
             if(checkcollision(&beam, &ufo)){
-                setupufo(180, 65);
+                setupufo(randomize(), randomize() + 50);
                 setupbeam(0, 0);
+                
+                if(windowmap[8] == 0x0A){
+                    swap = (int) windowmap[7] + 1;
+                    windowmap[8] = 0x01;
+                    windowmap[7] = (char) swap;
+                } else if(windowmap[7] == 0x0A){
+                    swap = (int) windowmap[6] + 1;
+                    windowmap[7] = 0x01;
+                    windowmap[6] = (char) swap;
+                }else{
+                    swap = (int) windowmap[8] + 1;
+                    windowmap[8] = (char) swap;
+                }
+                set_win_tiles(0, 0, 20, 1, windowmap);
             }
 
             movegamecharacter(&plane, plane.x, plane.y);
@@ -103,7 +121,6 @@ void main(){
                 setupbeam(0, 0); //That way we avoid that beam keep scrolling after disappearing from the screen
             }
 
-            //performdelay(5);
             wait_vbl_done();
             }
     }

@@ -1,4 +1,6 @@
 #include <gb/gb.h>
+#include <stdlib.h>
+#include <time.h>
 #include "BackgroundTiles.c"
 #include "BackgroundMap.c"
 #include "windowmap.c"
@@ -48,7 +50,7 @@ void movegamecharacter(GameCharacter* character, UINT8 x, UINT8 y){
 }
 
 void setupplane(){
-    plane.x = 55;
+    plane.x = 50;
     plane.y = 75;
     plane.width = 13;
     plane.height = 5;
@@ -109,4 +111,8 @@ void setupExplosion(UINT8 x, UINT8 y){
 void setupBackground(){
     set_bkg_data(37, 20, BackgroundTiles);
     set_bkg_tiles(0, 0, BackgroundMapWidth, BackgroundMapHeight, BackgroundMap);
+}
+
+UINT8 randomize(){
+    return rand() % 30;
 }
