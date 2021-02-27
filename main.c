@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include "setups.h"
 #include "GameOverBackground.c"
+#include "PortadaGB_data.c"
+#include "PortadaGB_map.c"
 
 void main(){
 
@@ -10,6 +12,19 @@ void main(){
     UINT8 swap; 
 
     font_t min_font;
+
+    //Set up the the splashcreen
+    set_bkg_data(0, 83, PortadaGB_data);
+    set_bkg_tiles(0, 0, 20, 18, PortadaGB_map);
+
+    SHOW_BKG;
+    DISPLAY_ON;
+
+    waitpad(J_START);
+
+    fadeout();
+
+    fadein();
 
     STAT_REG = 0x45;
     LYC_REG = 0x08; //Fire LCD Interrupt on the 8th scan line (just first row)

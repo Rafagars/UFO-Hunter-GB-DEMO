@@ -7,6 +7,7 @@
 #include "Plane.c"
 #include "GameCharacter.c"
 
+
 GameCharacter plane;
 GameCharacter ufo;
 GameCharacter beam;
