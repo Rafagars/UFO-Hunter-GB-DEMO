@@ -116,3 +116,44 @@ void setupBackground(){
 UINT8 randomize(){
     return rand() % 30;
 }
+
+UINT8 i;
+//Creates a fade out effect
+void fadeout(){
+    for(i = 0; i < 4; i++){
+        switch (i)
+        {
+        case 0:
+            BGP_REG = 0xE4;
+            break;
+        case 1:
+            BGP_REG = 0xF9;
+            break;
+        case 2: 
+            BGP_REG = 0xFE;
+            break;
+        case 3:
+            BGP_REG = 0xFF;
+            break;
+        }
+        performdelay(10);
+    }
+}
+//Creates a fade in effect
+void fadein(){
+    for(i = 0; i < 3; i++){
+        switch (i)
+        {
+        case 0:
+            BGP_REG = 0xFE;
+            break;
+        case 1:
+            BGP_REG = 0xF9;
+            break;
+        case 2:
+            BGP_REG = 0xE4;
+            break;
+        }
+        performdelay(10);
+    }
+}

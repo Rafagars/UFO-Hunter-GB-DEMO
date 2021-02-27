@@ -7,7 +7,6 @@
 void main(){
 
     UINT8 lives = 3;
-    UINT8 newlife;
     UINT8 swap; 
 
     font_t min_font;
@@ -39,8 +38,8 @@ void main(){
         if(checkcollision(&plane, &ufo)){
             lives--;
             // Since windowmap is a array of characters, we transform the value we want to change to a integer
-            newlife = (int) windowmap[19] - 1; //Subtract one to the character in the window layer that represent the number of lives
-            windowmap[19] = (char) newlife; //Changed it back to a character 
+            swap = (int) windowmap[19] - 1; //Subtract one to the character in the window layer that represent the number of lives
+            windowmap[19] = (char) swap; //Changed it back to a character 
 
             if(lives < 1){
                 move_bkg(0, 0); //Move the background to its default position
