@@ -104,7 +104,7 @@ void main(){
                 NR11_REG = 0x10;
                 NR12_REG = 0xF3;
                 NR13_REG = 0x00;
-                NR14_REG = 0x87;
+                NR14_REG = 0x86;
                 break;
             default:
                 break;
