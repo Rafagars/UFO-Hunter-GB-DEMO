@@ -100,6 +100,11 @@ void main(){
                 break;
             case J_A:
                 setupbeam(plane.x + 10, plane.y);
+                NR10_REG = 0x1E;
+                NR11_REG = 0x10;
+                NR12_REG = 0xF3;
+                NR13_REG = 0x00;
+                NR14_REG = 0x87;
                 break;
             default:
                 break;
