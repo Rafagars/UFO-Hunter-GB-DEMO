@@ -18,6 +18,7 @@ void interruptLCD(){
     HIDE_WIN;
 }
 
+// Initialize all the default variables needed to start the game
 void init(){
 
     SHOW_WIN; //Show the window
@@ -114,6 +115,7 @@ void setupBackground(){
     set_bkg_tiles(0, 0, BackgroundMapWidth, BackgroundMapHeight, BackgroundMap);
 }
 
+//Creates a random number between 0 - 30
 UINT8 randomize(){
     return rand() % 30;
 }

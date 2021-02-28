@@ -34,9 +34,11 @@ void main(){
 
     disable_interrupts();
 
+    //Start background music
     gbt_play(song_Data, 2, 7);
     gbt_loop(1);
 
+    //Set fonts
     font_init();
     min_font = font_load(font_min); //36 tile
     font_set(min_font);
@@ -49,7 +51,8 @@ void main(){
     set_sprite_data(0, 8, Plane);
     setupplane();
     setupufo(randomize() + 75, randomize() + 50);
-
+    
+    // Initialize all the default variables needed to start the game
     init();
 
     while(1){
@@ -125,6 +128,7 @@ void main(){
             default:
                 break;
             }
+            
             if(checkcollision(&beam, &ufo)){
                 //Ufo collision sound
                 NR10_REG = 0x1E;
@@ -163,8 +167,8 @@ void main(){
                 setupbeam(0, 0); //That way we avoid that beam keep scrolling after disappearing from the screen
             }
 
-            
             gbt_update(); //This will change to ROM bank 1
+
             }
     }
 }
