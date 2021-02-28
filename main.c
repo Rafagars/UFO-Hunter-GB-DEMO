@@ -94,29 +94,16 @@ void main(){
             setupplane();
             setupufo(randomize(), randomize() + 60);
         } else {
-            switch (joypad())
-            {
-            case J_UP:
-                if(plane.y > 25){
-                    plane.y--;
-                }
-                break;
-            case J_RIGHT:
-                if(plane.x < 155){
-                    plane.x++;
-                }
-                break;
-            case J_DOWN:
-                if(plane.y < 120){
-                    plane.y++;
-                }
-                break;
-            case J_LEFT:
-                if(plane.x > 5){
-                    plane.x--;
-                }
-                break;
-            case J_A:
+
+            if((joypad() & J_UP) && (plane.y > 25)){
+                plane.y--;
+            } else if((joypad() & J_LEFT) && (plane.x > 5)){
+                plane.x--;
+            } else if((joypad() & J_DOWN) && (plane.y < 120)){
+                plane.y++;
+            } else if((joypad() & J_RIGHT) && plane.x < 155){
+                plane.x++;
+            } else if(joypad() & J_A){
                 setupbeam(plane.x + 10, plane.y);
                 //Beam sound
                 NR10_REG = 0x1E;
@@ -124,11 +111,8 @@ void main(){
                 NR12_REG = 0xF3;
                 NR13_REG = 0x00;
                 NR14_REG = 0x86;
-                break;
-            default:
-                break;
-            }
-            
+            } 
+
             if(checkcollision(&beam, &ufo)){
                 //Ufo collision sound
                 NR10_REG = 0x1E;
