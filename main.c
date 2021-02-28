@@ -51,6 +51,14 @@ void main(){
         SHOW_WIN;
 
         if(checkcollision(&plane, &ufo)){
+            
+            //Collision sound
+            NR10_REG = 0x1E;
+            NR11_REG = 0x00;
+            NR12_REG = 0xF3;
+            NR13_REG = 0x00;
+            NR14_REG = 0x86;
+
             lives--;
             // Since windowmap is a array of characters, we transform the value we want to change to a integer
             swap = (int) windowmap[19] - 1; //Subtract one to the character in the window layer that represent the number of lives
@@ -100,16 +108,24 @@ void main(){
                 break;
             case J_A:
                 setupbeam(plane.x + 10, plane.y);
+                //Beam sound
                 NR10_REG = 0x1E;
                 NR11_REG = 0x10;
                 NR12_REG = 0xF3;
                 NR13_REG = 0x00;
-                NR14_REG = 0x87;
+                NR14_REG = 0x86;
                 break;
             default:
                 break;
             }
             if(checkcollision(&beam, &ufo)){
+                //Ufo collision sound
+                NR10_REG = 0x1E;
+                NR11_REG = 0x00;
+                NR12_REG = 0xF3;
+                NR13_REG = 0x10;
+                NR14_REG = 0x87;
+
                 setupufo(randomize(), randomize() + 50);
                 setupbeam(0, 0);
                 
