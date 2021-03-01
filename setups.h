@@ -66,7 +66,7 @@ void setupplane(){
     plane.x = 50;
     plane.y = 75;
     plane.width = 15;
-    plane.height = 12;
+    plane.height = 11;
 
     //load sprites for ship
     set_sprite_tile(0, 0);

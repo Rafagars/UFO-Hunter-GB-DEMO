@@ -74,9 +74,11 @@ void main(){
             swap = (int) windowmap[19] - 1; //Subtract one to the character in the window layer that represent the number of lives
             windowmap[19] = (char) swap; //Changed it back to a character 
             turnOffSound();
+            fadeout();
             if(lives < 1){
                 move_bkg(0, 0); //Move the background to its default position
                 HIDE_SPRITES;
+                fadein();
                 set_bkg_data(37, 20, BackgroundTiles);
                 set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
                 lives = 3; 
@@ -85,8 +87,8 @@ void main(){
                 windowmap[7] = 0x01;
                 windowmap[6] = 0x01;
             }
-
             waitpad(J_A | J_START | J_B); // Press any of this buttons to continue
+            fadein();
             turnOnSound();
             set_win_tiles(0, 0, 20, 1, windowmap);
             setupBackground(); //Restart background
