@@ -4,7 +4,7 @@
 
 typedef struct GameCharacter
 {
-    UBYTE spriteids[2]; // all characters use 2 sprites
+    UBYTE spriteids[4]; // all characters use 4 sprites
     UINT8 x;
     UINT8 y;
     UINT8 width;

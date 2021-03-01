@@ -50,7 +50,7 @@ void main(){
 
     set_sprite_data(0, 8, Plane);
     setupplane();
-    setupufo(randomize() + 75, randomize() + 50);
+    setupufo(180, randomize() + 50);
     
     // Initialize all the default variables needed to start the game
     init();
@@ -73,7 +73,7 @@ void main(){
             // Since windowmap is a array of characters, we transform the value we want to change to a integer
             swap = (int) windowmap[19] - 1; //Subtract one to the character in the window layer that represent the number of lives
             windowmap[19] = (char) swap; //Changed it back to a character 
-
+            turnOffSound();
             if(lives < 1){
                 move_bkg(0, 0); //Move the background to its default position
                 HIDE_SPRITES;
@@ -87,12 +87,13 @@ void main(){
             }
 
             waitpad(J_A | J_START | J_B); // Press any of this buttons to continue
+            turnOnSound();
             set_win_tiles(0, 0, 20, 1, windowmap);
             setupBackground(); //Restart background
             //Restart sprites
             SHOW_SPRITES;
             setupplane();
-            setupufo(randomize(), randomize() + 60);
+            setupufo(180, randomize() + 50);
         } else {
 
             if((joypad() & J_UP) && (plane.y > 25)){
@@ -121,7 +122,7 @@ void main(){
                 NR13_REG = 0x10;
                 NR14_REG = 0x87;
 
-                setupufo(randomize(), randomize() + 50);
+                setupufo(180, randomize() + 50);
                 setupbeam(0, 0);
                 
                 if(windowmap[8] == 0x0A){
