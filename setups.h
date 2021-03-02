@@ -131,7 +131,7 @@ void setupExplosion(UINT8 x, UINT8 y){
 }
 
 void setupBackground(){
-    set_bkg_data(37, 33, BackgroundTiles);
+    set_bkg_data(37, 48, BackgroundTiles);
     set_bkg_tiles(0, 0, BackgroundMapWidth, BackgroundMapHeight, BackgroundMap);
 }
 
