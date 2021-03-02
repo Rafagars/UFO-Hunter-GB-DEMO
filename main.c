@@ -12,6 +12,8 @@ extern const unsigned char * song_Data[];
 void main(){
 
     UINT8 lives = 3;
+    UINT8 level = 1;
+    UINT8 numberofUfos = 10;
     UINT8 swap; 
 
     font_t min_font;
@@ -43,7 +45,7 @@ void main(){
     min_font = font_load(font_min); //36 tile
     font_set(min_font);
 
-    setupBackground();
+    setupBackground(level);
 
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 0);
@@ -71,8 +73,8 @@ void main(){
 
             lives--;
             // Since windowmap is a array of characters, we transform the value we want to change to a integer
-            swap = (int) windowmap[19] - 1; //Subtract one to the character in the window layer that represent the number of lives
-            windowmap[19] = (char) swap; //Changed it back to a character 
+            swap = (int) windowmap[18] - 1; //Subtract one to the character in the window layer that represent the number of lives
+            windowmap[18] = (char) swap; //Changed it back to a character 
             turnOffSound();
             fadeout();
             if(lives < 1){
@@ -82,16 +84,21 @@ void main(){
                 set_bkg_data(37, 20, BackgroundTiles);
                 set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
                 lives = 3; 
-                windowmap[19] = 0x04; 
-                windowmap[8] = 0x01;
-                windowmap[7] = 0x01;
-                windowmap[6] = 0x01;
+                windowmap[18] = 0x04; 
+                windowmap[6] = 0x02;
+                if(level == 1){
+                    windowmap[5] = 0x01;
+                    numberofUfos = 10;
+                } else {
+                    windowmap[5] = 0x06;
+                    numberofUfos = 15;
+                }
             }
             waitpad(J_A | J_START | J_B); // Press any of this buttons to continue
             fadein();
             turnOnSound();
             set_win_tiles(0, 0, 20, 1, windowmap);
-            setupBackground(); //Restart background
+            setupBackground(level); //Restart background
             //Restart sprites
             SHOW_SPRITES;
             setupplane();
@@ -124,22 +131,33 @@ void main(){
                 NR13_REG = 0x10;
                 NR14_REG = 0x87;
 
+                numberofUfos--;
+
                 setupufo(180, randomize() + 50);
                 setupbeam(0, 0);
                 
-                if(windowmap[8] == 0x0A){
-                    swap = (int) windowmap[7] + 1;
-                    windowmap[8] = 0x01;
-                    windowmap[7] = (char) swap;
-                } else if(windowmap[7] == 0x0A){
-                    swap = (int) windowmap[6] + 1;
-                    windowmap[7] = 0x01;
+                if(windowmap[5] == 0x02 && windowmap[6] == 0x01){
+                    windowmap[5] = 0x01;
+                    windowmap[6] = 0x0A;
+                } else {
+                    swap = (int) windowmap[6] - 1;
                     windowmap[6] = (char) swap;
-                }else{
-                    swap = (int) windowmap[8] + 1;
-                    windowmap[8] = (char) swap;
                 }
+
                 set_win_tiles(0, 0, 20, 1, windowmap);
+            }
+
+            if(numberofUfos == 0 && level < 2){
+                level++;
+                if(level == 2){
+                    windowmap[5] = 0x02;
+                    windowmap[6] = 0x06;
+                    set_win_tiles(0, 0, 20, 1, windowmap);
+                    numberofUfos = 15;
+                }
+                fadeout();
+                setupBackground(level);
+                fadein();
             }
 
             movegamecharacter(&plane, plane.x, plane.y);

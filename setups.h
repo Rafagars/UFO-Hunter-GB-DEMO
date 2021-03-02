@@ -3,6 +3,7 @@
 #include <time.h>
 #include "BackgroundTiles.c"
 #include "BackgroundMap.c"
+#include "BackgroundMap2.c"
 #include "windowmap.c"
 #include "Plane2.c"
 #include "GameCharacter.c"
@@ -130,9 +131,13 @@ void setupExplosion(UINT8 x, UINT8 y){
     movegamecharacter(&explosion, explosion.x, explosion.y);
 }
 
-void setupBackground(){
+void setupBackground(UINT8 level){
     set_bkg_data(37, 48, BackgroundTiles);
-    set_bkg_tiles(0, 0, BackgroundMapWidth, BackgroundMapHeight, BackgroundMap);
+    if(level == 1){
+        set_bkg_tiles(0, 0, BackgroundMapWidth, BackgroundMapHeight, BackgroundMap);
+    } else if(level == 2){
+        set_bkg_tiles(0, 0, BackgroundMap2Width, BackgroundMap2Height, BackgroundMap2);
+    }
 }
 
 //Creates a random number between 0 - 30
