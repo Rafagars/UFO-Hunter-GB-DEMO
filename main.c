@@ -153,7 +153,7 @@ void main(){
             if(numberofUfos == 0 && level < 2){
                 level++;
                 if(level == 2){
-                    windowmap[5] = 0x0·;
+                    windowmap[5] = 0x03;
                     windowmap[6] = 0x0A;
                     set_win_tiles(0, 0, 20, 1, windowmap);
                     numberofUfos = 29;
