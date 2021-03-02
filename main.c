@@ -13,7 +13,7 @@ void main(){
 
     UINT8 lives = 3;
     UINT8 level = 1;
-    UINT8 numberofUfos = 10;
+    UINT8 numberofUfos = 20;
     UINT8 swap; 
 
     font_t min_font;
@@ -85,12 +85,12 @@ void main(){
                 set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
                 lives = 3; 
                 windowmap[18] = 0x04; 
-                windowmap[6] = 0x02;
+                windowmap[5] = 0x03;
                 if(level == 1){
-                    windowmap[5] = 0x01;
-                    numberofUfos = 10;
+                    windowmap[6] = 0x01;
+                    numberofUfos = 20;
                 } else {
-                    windowmap[5] = 0x06;
+                    windowmap[6] = 0x0A;
                     numberofUfos = 15;
                 }
             }
@@ -136,10 +136,13 @@ void main(){
                 setupufo(180, randomize() + 50);
                 setupbeam(0, 0);
                 
-                if(windowmap[5] == 0x02 && windowmap[6] == 0x01){
+                if(windowmap[5] == 0x03 && windowmap[6] == 0x01){
+                    windowmap[5] = 0x02;
+                    windowmap[6] = 0x0A;
+                } else if(windowmap[5] == 0x02 && windowmap[6] == 0x01) {
                     windowmap[5] = 0x01;
                     windowmap[6] = 0x0A;
-                } else {
+                } else{
                     swap = (int) windowmap[6] - 1;
                     windowmap[6] = (char) swap;
                 }
@@ -150,10 +153,10 @@ void main(){
             if(numberofUfos == 0 && level < 2){
                 level++;
                 if(level == 2){
-                    windowmap[5] = 0x02;
-                    windowmap[6] = 0x06;
+                    windowmap[5] = 0x0·;
+                    windowmap[6] = 0x0A;
                     set_win_tiles(0, 0, 20, 1, windowmap);
-                    numberofUfos = 15;
+                    numberofUfos = 29;
                 }
                 fadeout();
                 setupBackground(level);
