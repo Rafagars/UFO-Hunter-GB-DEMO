@@ -14,6 +14,7 @@ void main(){
     UINT8 lives = 3;
     UINT8 level = 1;
     UINT8 numberofUfos = 20;
+    UINT8 ufoSpeed = 2;
     UINT8 swap; 
 
     font_t min_font;
@@ -50,7 +51,7 @@ void main(){
     set_win_tiles(0, 0, 20, 1, windowmap);
     move_win(7, 0);
 
-    set_sprite_data(0, 8, Plane);
+    set_sprite_data(0, 10, Plane);
     setupplane();
     setupufo(180, randomize() + 50);
     
@@ -73,8 +74,8 @@ void main(){
 
             lives--;
             // Since windowmap is a array of characters, we transform the value we want to change to a integer
-            swap = (int) windowmap[18] - 1; //Subtract one to the character in the window layer that represent the number of lives
-            windowmap[18] = (char) swap; //Changed it back to a character 
+            swap = (int) windowmap[19] - 1; //Subtract one to the character in the window layer that represent the number of lives
+            windowmap[19] = (char) swap; //Changed it back to a character 
             turnOffSound();
             fadeout();
             if(lives < 1){
@@ -84,14 +85,17 @@ void main(){
                 set_bkg_data(37, 20, BackgroundTiles);
                 set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
                 lives = 3; 
-                windowmap[18] = 0x04; 
-                windowmap[5] = 0x03;
+                windowmap[19] = 0x04; 
+                windowmap[4] = 0x03;
                 if(level == 1){
-                    windowmap[6] = 0x01;
+                    windowmap[5] = 0x01;
                     numberofUfos = 20;
+                } else if (level == 2){
+                    windowmap[5] = 0x06;
+                    numberofUfos = 25;
                 } else {
-                    windowmap[6] = 0x0A;
-                    numberofUfos = 15;
+                    windowmap[5] = 0x0A;
+                    numberofUfos = 29;
                 }
             }
             waitpad(J_A | J_START | J_B); // Press any of this buttons to continue
@@ -136,25 +140,33 @@ void main(){
                 setupufo(180, randomize() + 50);
                 setupbeam(0, 0);
                 
-                if(windowmap[5] == 0x03 && windowmap[6] == 0x01){
-                    windowmap[5] = 0x02;
-                    windowmap[6] = 0x0A;
-                } else if(windowmap[5] == 0x02 && windowmap[6] == 0x01) {
-                    windowmap[5] = 0x01;
-                    windowmap[6] = 0x0A;
+                if(windowmap[4] == 0x03 && windowmap[5] == 0x01){
+                    windowmap[4] = 0x02;
+                    windowmap[5] = 0x0A;
+                } else if(windowmap[4] == 0x02 && windowmap[5] == 0x01) {
+                    windowmap[4] = 0x01;
+                    windowmap[5] = 0x0A;
                 } else{
-                    swap = (int) windowmap[6] - 1;
-                    windowmap[6] = (char) swap;
+                    swap = (int) windowmap[5] - 1;
+                    windowmap[5] = (char) swap;
                 }
 
                 set_win_tiles(0, 0, 20, 1, windowmap);
             }
 
-            if(numberofUfos == 0 && level < 2){
+            if(numberofUfos == 0 && level < 3){
                 level++;
                 if(level == 2){
-                    windowmap[5] = 0x03;
-                    windowmap[6] = 0x0A;
+                    windowmap[4] = 0x03;
+                    windowmap[5] = 0x06;
+                    windowmap[10] = 0x03;
+                    set_win_tiles(0, 0, 20, 1, windowmap);
+                    numberofUfos = 25;
+                    ufoSpeed = 3;
+                } else if(level == 3){
+                    windowmap[4] = 0x03;
+                    windowmap[5] = 0x09;
+                    windowmap[10] = 0x04;
                     set_win_tiles(0, 0, 20, 1, windowmap);
                     numberofUfos = 29;
                 }
@@ -164,15 +176,18 @@ void main(){
             }
 
             movegamecharacter(&plane, plane.x, plane.y);
-            ufo.x -= 2;
+            ufo.x -= ufoSpeed;
             movegamecharacter(&ufo, ufo.x, ufo.y);
-            
             beam.x += 3;
             move_sprite(beam.spriteids[0], beam.x, beam.y);
             scroll_bkg(1, 0);
 
             if(beam.x > 155){
                 setupbeam(0, 0); //That way we avoid that beam keep scrolling after disappearing from the screen
+            }
+
+            if(ufo.x < 1){
+                setupufo(180, randomize() + 50);
             }
 
             gbt_update(); //This will change to ROM bank 1

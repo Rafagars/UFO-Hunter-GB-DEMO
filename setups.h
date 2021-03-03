@@ -4,6 +4,7 @@
 #include "BackgroundTiles.c"
 #include "BackgroundMap.c"
 #include "BackgroundMap2.c"
+#include "BackgroundMap3.c"
 #include "windowmap.c"
 #include "Plane2.c"
 #include "GameCharacter.c"
@@ -12,7 +13,7 @@
 GameCharacter plane;
 GameCharacter ufo;
 GameCharacter beam;
-GameCharacter explosion;
+GameCharacter asteroid;
 UBYTE spritesize = 8;
 
 void interruptLCD(){
@@ -116,19 +117,18 @@ void setupbeam(UINT8 x, UINT8 y){
     move_sprite(beam.spriteids[0], beam.x, beam.y);
 }
 
-void setupExplosion(UINT8 x, UINT8 y){
-    explosion.x = x;
-    explosion.y = y;
-    explosion.width = 8;
-    explosion.height = 8;
+void setupAsteroid(UINT8 x, UINT8 y){
+    asteroid.x = x;
+    asteroid.y = y;
+    asteroid.width = 8;
+    asteroid.height = 8;
 
     //load sprites for explosion
-    set_sprite_tile(5, 5);
-    explosion.spriteids[0] = 5;
-    set_sprite_tile(6, 6);
-    explosion.spriteids[1] = 6;
+    set_sprite_tile(9, 9);
+    asteroid.spriteids[0] = 9;
+  
 
-    movegamecharacter(&explosion, explosion.x, explosion.y);
+    move_sprite(asteroid.spriteids[0], asteroid.x, asteroid.y);
 }
 
 void setupBackground(UINT8 level){
@@ -137,6 +137,8 @@ void setupBackground(UINT8 level){
         set_bkg_tiles(0, 0, BackgroundMapWidth, BackgroundMapHeight, BackgroundMap);
     } else if(level == 2){
         set_bkg_tiles(0, 0, BackgroundMap2Width, BackgroundMap2Height, BackgroundMap2);
+    } else if(level == 3){
+        set_bkg_tiles(0, 0, BackgroundMap3Width, BackgroundMap3Height, BackgroundMap3);
     }
 }
 
