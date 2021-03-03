@@ -4,6 +4,7 @@
 #include "gbt_player.h"
 #include "setups.h"
 #include "GameOverBackground.c"
+#include "Pause.c"
 #include "PortadaGB_data.c"
 #include "PortadaGB_map.c"
 
@@ -125,7 +126,24 @@ void main(){
                 NR12_REG = 0xF3;
                 NR13_REG = 0x00;
                 NR14_REG = 0x86;
-            } 
+            } else if(joypad() & J_SELECT){
+                if (ufoSpeed > 3){
+                    ufoSpeed = 2;
+                } else {
+                    ufoSpeed++;
+                }
+            }else if(joypad() & J_START){
+                move_bkg(0, 0); //Move the background to its default position
+                HIDE_SPRITES;
+                turnOffSound();
+                set_bkg_tiles(0,0, PauseWidth, PauseHeight, Pause);
+                performdelay(10);
+                waitpad(J_START);
+                performdelay(10);
+                turnOnSound();
+                SHOW_SPRITES;
+                setupBackground(level);
+            }
 
             if(checkcollision(&beam, &ufo)){
                 //Ufo collision sound
