@@ -1,6 +1,6 @@
 /*
 
- BACKGROUNDTILES.H
+ PLANE2.H
 
  Include File.
 
@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 47
+  Tiles                : 0 to 9
 
   Palette colors       : None.
   SGB Palette          : None.
@@ -22,14 +22,14 @@
 
 */
 
-#ifndef __BackgroundTiles_h_INCLUDE
-#define __BackgroundTiles_h_INCLUDE
+#ifndef __Plane2_h_INCLUDE
+#define __Plane2_h_INCLUDE
 
 /* Bank of tiles. */
-#define BackgroundTilesBank 0
+#define PlaneBank 0
 /* Start of tile array. */
-extern const unsigned char BackgroundTiles[];
+extern const unsigned char Plane[];
 
 #endif
 
-/* End of BACKGROUNDTILES.H */
+/* End of PLANE2.H */
