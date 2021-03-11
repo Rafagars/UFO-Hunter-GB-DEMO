@@ -1,4 +1,4 @@
-./mod2gbt template.mod song 2
+./mod2gbt audio/template.mod song 2
 
 /opt/gbdk/bin/lcc -Wa-l -Wl-m -Wf--debug -Wl-y -Wl-w -c -o main.o main.c
 /opt/gbdk/bin/lcc -Wa-l -Wl-m -Wf--debug -Wl-y -Wl-w -c -o audio/output.o audio/output.c
