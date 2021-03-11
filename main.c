@@ -1,10 +1,10 @@
 #include <gb/gb.h>
 #include <gb/font.h>
 #include <stdio.h>
-#include "gbt_player.h"
+#include "audio/gbt_player.h"
 #include "setups.c"
-#include "PortadaGB_data.c"
-#include "PortadaGB_map.c"
+#include "cover/Cover_data.c"
+#include "cover/Cover_map.c"
 
 extern const unsigned char * song_Data[];
 
@@ -19,8 +19,8 @@ void main(){
     font_t min_font;
 
     //Set up the the splashcreen
-    set_bkg_data(0, 83, PortadaGB_data);
-    set_bkg_tiles(0, 0, 20, 18, PortadaGB_map);
+    set_bkg_data(0, 83, Cover_data);
+    set_bkg_tiles(0, 0, 20, 18, Cover_map);
 
     SHOW_BKG;
     DISPLAY_ON;

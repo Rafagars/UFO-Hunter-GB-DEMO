@@ -1,15 +1,15 @@
 #include <gb/gb.h>
 #include <stdlib.h>
 #include <time.h>
-#include "BackgroundTiles.c"
-#include "BackgroundMap.c"
-#include "BackgroundMap2.c"
-#include "BackgroundMap3.c"
+#include "backgrounds/BackgroundTiles.c"
+#include "backgrounds/BackgroundMap.c"
+#include "backgrounds/BackgroundMap2.c"
+#include "backgrounds/BackgroundMap3.c"
 #include "windowmap.c"
-#include "Plane2.c"
+#include "sprites/Plane.c"
 #include "GameCharacter.c"
-#include "GameOverBackground.c"
-#include "Pause.c"
+#include "backgrounds/GameOverBackground.c"
+#include "backgrounds/Pause.c"
 
 GameCharacter plane;
 GameCharacter ufo;

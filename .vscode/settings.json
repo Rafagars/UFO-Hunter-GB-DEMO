@@ -4,6 +4,7 @@
         "windowmap.c": "cpp",
         "backgroundtiles.c": "cpp",
         "gamecharacter.c": "cpp",
-        "portadagb_map.c": "cpp"
+        "portadagb_map.c": "cpp",
+        "gbt_player.h": "c"
     }
 }
