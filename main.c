@@ -2,9 +2,7 @@
 #include <gb/font.h>
 #include <stdio.h>
 #include "gbt_player.h"
-#include "setups.h"
-#include "GameOverBackground.c"
-#include "Pause.c"
+#include "setups.c"
 #include "PortadaGB_data.c"
 #include "PortadaGB_map.c"
 
@@ -80,11 +78,7 @@ void main(){
             turnOffSound();
             fadeout();
             if(lives < 1){
-                move_bkg(0, 0); //Move the background to its default position
-                HIDE_SPRITES;
-                fadein();
-                set_bkg_data(37, 20, BackgroundTiles);
-                set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
+                gameOverScreen();
                 lives = 3; 
                 windowmap[19] = 0x04; 
                 windowmap[4] = 0x03;
@@ -133,15 +127,7 @@ void main(){
                     ufoSpeed++;
                 }
             }else if(joypad() & J_START){
-                move_bkg(0, 0); //Move the background to its default position
-                HIDE_SPRITES;
-                turnOffSound();
-                set_bkg_tiles(0,0, PauseWidth, PauseHeight, Pause);
-                performdelay(10);
-                waitpad(J_START);
-                performdelay(10);
-                turnOnSound();
-                SHOW_SPRITES;
+                pauseScreen();
                 setupBackground(level);
             }
 

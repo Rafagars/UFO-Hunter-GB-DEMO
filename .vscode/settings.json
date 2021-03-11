@@ -1,5 +1,9 @@
 {
     "files.associations": {
-        "backgroundmap.c": "cpp"
+        "backgroundmap.c": "cpp",
+        "windowmap.c": "cpp",
+        "backgroundtiles.c": "cpp",
+        "gamecharacter.c": "cpp",
+        "portadagb_map.c": "cpp"
     }
 }
