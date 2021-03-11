@@ -79,7 +79,8 @@ void main(){
             fadeout();
             if(lives < 1){
                 gameOverScreen();
-                lives = 3; 
+                lives = 3;
+                //Changes the characters on the window layer to its default
                 windowmap[19] = 0x04; 
                 windowmap[4] = 0x03;
                 if(level == 1){
@@ -144,6 +145,7 @@ void main(){
                 setupufo(180, randomize() + 50);
                 setupbeam(0, 0);
                 
+                //Changes the ufos character on the window layer to current one
                 if(windowmap[4] == 0x03 && windowmap[5] == 0x01){
                     windowmap[4] = 0x02;
                     windowmap[5] = 0x0A;
@@ -163,7 +165,7 @@ void main(){
                 if(level == 2){
                     windowmap[4] = 0x03;
                     windowmap[5] = 0x06;
-                    windowmap[10] = 0x03;
+                    windowmap[10] = 0x03; //Changes the lvl and ufos characater on the window layer
                     set_win_tiles(0, 0, 20, 1, windowmap);
                     numberofUfos = 25;
                     ufoSpeed = 3;
