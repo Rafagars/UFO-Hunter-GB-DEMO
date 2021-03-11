@@ -172,9 +172,13 @@ void fadein(){
     }
 }
 
-void pauseScreen(){
+void resetBackground(){
     move_bkg(0, 0); //Move the background to its default position
     HIDE_SPRITES;
+}
+
+void pauseScreen(){
+    resetBackground();
     turnOffSound();
     set_bkg_tiles(0,0, PauseWidth, PauseHeight, Pause);
     performdelay(10);
@@ -185,8 +189,7 @@ void pauseScreen(){
 }
 
 void gameOverScreen(){
-    move_bkg(0, 0); //Move the background to its default position
-    HIDE_SPRITES;
+    resetBackground();
     fadein();
     set_bkg_data(37, 20, BackgroundTiles);
     set_bkg_tiles(0, 0, GameOverWidth, GameOverHeight, GameOver);
