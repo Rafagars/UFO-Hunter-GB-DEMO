@@ -1,5 +1,7 @@
 #include "setups.h"
 
+UBYTE spritesize = 8;
+
 void interruptLCD(){
     HIDE_WIN;
 }

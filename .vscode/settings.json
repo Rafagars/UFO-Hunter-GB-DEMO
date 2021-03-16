@@ -5,6 +5,7 @@
         "backgroundtiles.c": "cpp",
         "gamecharacter.c": "cpp",
         "portadagb_map.c": "cpp",
-        "gbt_player.h": "c"
+        "gbt_player.h": "c",
+        "gameoverbackground.c": "cpp"
     }
 }

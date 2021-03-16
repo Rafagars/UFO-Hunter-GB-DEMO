@@ -83,15 +83,20 @@ void main(){
                 //Changes the characters on the window layer to its default
                 windowmap[19] = 0x04; 
                 windowmap[4] = 0x03;
-                if(level == 1){
+                switch (level)
+                {
+                case 1:
                     windowmap[5] = 0x01;
                     numberofUfos = 20;
-                } else if (level == 2){
+                    break;
+                case 2:
                     windowmap[5] = 0x06;
                     numberofUfos = 25;
-                } else {
+                    break;
+                default:
                     windowmap[5] = 0x0A;
                     numberofUfos = 29;
+                    break;
                 }
             }
             waitpad(J_A | J_START | J_B); // Press any of this buttons to continue
